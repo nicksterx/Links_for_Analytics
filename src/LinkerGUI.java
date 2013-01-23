@@ -22,11 +22,15 @@ public File saveFile;
 	public LinkerGUI(){
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException | InstantiationException
-				| IllegalAccessException | UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
+		} catch (ClassNotFoundException e){
+            e.printStackTrace();
+        } catch( InstantiationException e){
+            e.printStackTrace();
+        } catch( IllegalAccessException e){
+            e.printStackTrace();
+        } catch ( UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
-		}
+	    }
 		Container content = this.getContentPane();
 		setTitle("Links for Analytics");
 		setSize(300,200);
