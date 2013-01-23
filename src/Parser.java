@@ -8,7 +8,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 
-public class Parser {
+public class Parser{
 	public Parser(File htmlDoc, String st_source, String st_med, String st_term, String st_content, String st_name, File Save) {
 		String builtURL="";
 		if(!st_source.isEmpty()){
@@ -30,23 +30,29 @@ public class Parser {
 		try {
 			Document doc = Jsoup.parse(htmlDoc, "UTF-8", "http://www.affordable-solar.com");
 			Element body = doc.body();
-			doc.outputSettings().charset("UTF-8");
 			Elements links = body.select("a[href]");
-			
-			for(int i = 0; i<links.size(); i++){
-				String link = links.get(i).attr("href");
-				if(link.contains("?")){
-					links.set(i,links.get(i).attr("href",link+"&"+builtURL));
-				}else{
-					links.set(i,links.get(i).attr("href",link+"?"+builtURL));					
+						
+			for(Element link : links){
+				if(link.text().contains("?")){
+					String URL = link.attr("href").concat("&"+builtURL);
+					//Still doesn't work attr escapes urls
+                    link.attr("href",URL);
+					System.out.println(link.text());
+					link.attr("href", "hey");
+
+				}
+				else{
+					String URL = link.attr("href").concat("?"+builtURL);
+					link.attr("href",URL);
+					System.out.println(link.text());
 				}
 			}
+			
 			PrintWriter save = new PrintWriter(Save,"UTF-8");
 			save.write(doc.html());
 			save.flush();
 			save.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 				
