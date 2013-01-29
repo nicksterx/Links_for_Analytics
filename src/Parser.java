@@ -9,6 +9,16 @@ import org.jsoup.select.Elements;
 
 
 public class Parser{
+    /**
+     * Parser handles the input of an HTML Document parses and then puts the output into the save file.
+     * @param htmlDoc  Original Document
+     * @param st_source  Source
+     * @param st_med     Medium
+     * @param st_term    Term
+     * @param st_content Content Type (QR Code, Facebook, Bitly)
+     * @param st_name    Name
+     * @param Save       Document to save the parsed information
+     */
 	public Parser(File htmlDoc, String st_source, String st_med, String st_term, String st_content, String st_name, File Save) {
 		String builtURL="";
 		if(!st_source.isEmpty()){
@@ -30,24 +40,20 @@ public class Parser{
 		try {
 			Document doc = Jsoup.parse(htmlDoc, "UTF-8", "http://www.affordable-solar.com");
 			Element body = doc.body();
-			Elements links = body.select("a[href]");
+
+            Elements links = body.getElementsByAttribute("href");
 						
 			for(Element link : links){
 				if(link.text().contains("?")){
 					String URL = link.attr("href").concat("&"+builtURL);
-					//Still doesn't work attr escapes urls
-                    link.attr("href",URL);
-					System.out.println(link.text());
-					link.attr("href", "hey");
-
+                    link.attr("href", URL);
 				}
 				else{
 					String URL = link.attr("href").concat("?"+builtURL);
-					link.attr("href",URL);
-					System.out.println(link.text());
+					link.attr("href", URL);
 				}
 			}
-			
+
 			PrintWriter save = new PrintWriter(Save,"UTF-8");
 			save.write(doc.html());
 			save.flush();
