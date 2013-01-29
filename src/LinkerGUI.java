@@ -5,15 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 
 
 public class LinkerGUI  extends JFrame{
@@ -36,7 +28,7 @@ public File saveFile;
 		setSize(300,200);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		JPanel jp_labels = new JPanel(new GridLayout(7,1));
 		JPanel jp_fields = new JPanel(new GridLayout(7,1));
@@ -122,8 +114,14 @@ public File saveFile;
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				Parser parse = new Parser(htmlFile, tf_src.getText(), tf_med.getText(), tf_term.getText(), tf_content.getText(), tf_name.getText(), saveFile);
-				
+				Parser parse = new Parser();
+				parse.setSt_origDoc(htmlFile.getAbsolutePath());
+                parse.setSt_source(tf_src.getText());
+                parse.setSt_med(tf_med.getText());
+                parse.setSt_term(tf_term.getText());
+                parse.setSt_content(tf_content.getText());
+                parse.setSt_name(tf_name.getText());
+                System.out.println(parse.getSt_parsedDoc());
 			}
 		});
 		content.add(submit,BorderLayout.SOUTH);
