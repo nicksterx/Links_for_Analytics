@@ -15,7 +15,7 @@ public class Parser{
      * @param st_source  Source
      * @param st_med     Medium
      * @param st_term    Term
-     * @param st_content Content Type (QR Code, Facebook, Bitly)
+     * @param st_content Content Type (QR Code, Facebook, Bit.ly)
      * @param st_name    Name
      * @param Save       Document to save the parsed information
      */
