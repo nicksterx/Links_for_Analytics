@@ -11,7 +11,7 @@ import org.jsoup.select.Elements;
 public class Parser{
     /**
      * Parser handles the input of an HTML Document parses and then puts the output into the save file.
-     * @param htmlDoc  Original Document
+     * @param htmlDoc    Original Document
      * @param st_source  Source
      * @param st_med     Medium
      * @param st_term    Term
